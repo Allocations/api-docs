@@ -1,0 +1,1144 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HVP API Documentation",
+    "description": "Checkout the [Getting Started Tutorial](/docs/tutorials/intro) to get setup with the Allocations API.\n",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": { "type": "apiKey", "in": "header", "name": "X-API-KEY" }
+    },
+    "schemas": {
+      "SignaturePacket": {
+        "type": "object",
+        "properties": {
+          "accepted_intent_to_sign": {
+            "type": "boolean",
+            "description": "The user accepted an intent to electronically sign the agreement."
+          },
+          "accepted_electronic_business": {
+            "type": "boolean",
+            "description": "The user accepted to do business electronically."
+          },
+          "signer_ip_address": {
+            "type": "string",
+            "description": "The IP Address of the signer at the time of signing the agreement."
+          },
+          "signer_user_id": {
+            "type": "string",
+            "description": "The signer Allocations user ID."
+          },
+          "signer_email": {
+            "type": "string",
+            "description": "The email address of the signer at the time of signing the agreement."
+          },
+          "signature_date": {
+            "type": "string",
+            "description": "The date the signer signed the agreement."
+          }
+        }
+      },
+      "InvestmentAgreement": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The investment agreement's primary key."
+          },
+          "id": { "type": "string", "description": "A virtual of _id." },
+          "title": {
+            "type": "string",
+            "description": "The title of the agreement."
+          },
+          "investment_id": {
+            "type": "string",
+            "description": "The associated investment's id."
+          },
+          "signed": {
+            "type": "boolean",
+            "description": "Indicates if the agreement has been signed."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["subscription-agreement", "side-letter"],
+            "description": "The type of agreement."
+          },
+          "md5": {
+            "type": "string",
+            "description": "Hash of the stored agreement useful for ensuring the stored file is stored correctly."
+          },
+          "s3_bucket": {
+            "type": "string",
+            "description": "S3 Bucket where the agreement is stored."
+          },
+          "s3_key": {
+            "type": "string",
+            "description": "S3 Key where the agreement is stored."
+          },
+          "signature_packet": {
+            "description": "Used to comply with e-signature laws.",
+            "type": "object",
+            "properties": {
+              "accepted_intent_to_sign": {
+                "type": "boolean",
+                "description": "The user accepted an intent to electronically sign the agreement."
+              },
+              "accepted_electronic_business": {
+                "type": "boolean",
+                "description": "The user accepted to do business electronically."
+              },
+              "signer_ip_address": {
+                "type": "string",
+                "description": "The IP Address of the signer at the time of signing the agreement."
+              },
+              "signer_user_id": {
+                "type": "string",
+                "description": "The signer Allocations user ID."
+              },
+              "signer_email": {
+                "type": "string",
+                "description": "The email address of the signer at the time of signing the agreement."
+              },
+              "signature_date": {
+                "type": "string",
+                "description": "The date the signer signed the agreement."
+              }
+            }
+          }
+        }
+      },
+      "Investment": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The investment's primary key."
+          },
+          "id": { "type": "string", "description": "A virtual of _id." },
+          "deal_id": {
+            "type": "string",
+            "description": "The investments associated deal's id."
+          },
+          "phase": {
+            "type": "string;",
+            "enum": [
+              "new",
+              "invited",
+              "kyc-pending",
+              "generate-agreements",
+              "agreements-pending",
+              "signed",
+              "wired",
+              "ach",
+              "complete",
+              "declined",
+              "failed"
+            ],
+            "description": "The phase the investment is currently in."
+          },
+          "investor": {
+            "type": "object",
+            "description": "The investor associated with the investment.",
+            "properties": {
+              "passport_id": {
+                "type": "string",
+                "description": "The Investor Passport associated with the investor."
+              },
+              "type": {
+                "type": "string",
+                "enum": ["Entity", "Individual"],
+                "description": "The investor is an Entity or an Individual"
+              },
+              "name": {
+                "type": "string",
+                "description": "The name of the investor."
+              },
+              "signer": {
+                "type": "string",
+                "description": "The text to use for signing agreements."
+              },
+              "representative": {
+                "type": "string",
+                "description": "The name of the representative if the investor is an Entity."
+              },
+              "title": {
+                "type": "string",
+                "description": "The title of the representative if the investor is an Entity."
+              },
+              "email": {
+                "type": "string",
+                "description": "The email address of the investor."
+              }
+            }
+          },
+          "total_committed_amount": {
+            "type": "number",
+            "description": "The amount the investor committed to."
+          },
+          "side_letter": {
+            "type": "boolean",
+            "description": "The investor is issued a side letter changing the default terms of the deal."
+          },
+          "carry_fee": {
+            "type": "number",
+            "description": "The percentage carry charged by the SPV. Undefined if a custom carry fee is provided"
+          },
+          "custom_carry_fee": {
+            "type": "string",
+            "description": "Custom carry charged by the SPV. Undefined if carry fee is provided"
+          },
+          "management_fee": {
+            "type": "number",
+            "description": "The percentage management fee charged by the SPV. Undefined if a custom management fee is provided"
+          },
+          "custom_management_fee": {
+            "type": "string",
+            "description": "Custom management fee charged by the SPV. Undefined if management fee is provided"
+          },
+          "management_fee_frequency": {
+            "type": "string",
+            "enum": ["One-Time", "Annually"],
+            "description": "The frequency the management fee is charged."
+          },
+          "custom_fields": {
+            "type": "object",
+            "description": "Custom investment submission fields used to populate submission agreements."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Extra information to store with the investment."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "The last time the investment was updated."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The time the investment was created."
+          }
+        }
+      },
+      "W-9": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Investor's Street Address."
+          },
+          "city": {
+            "type": "string",
+            "description": "Investor's city of residence."
+          },
+          "state": {
+            "type": "string",
+            "description": "Investor's state of residence."
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Investor's postal code."
+          },
+          "tax_id": {
+            "type": "string",
+            "description": "Investor's tax id (SSN)."
+          }
+        }
+      },
+      "W-9-E": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string | null" },
+          "smllc_name": { "type": "string | null" },
+          "ssn": { "type": "string | null" },
+          "company_type": {
+            "type": "string",
+            "enum": [
+              "C Corporation",
+              "S Corporation",
+              "Partnership",
+              "Single-Member LLC",
+              "Trust or Estate",
+              "Limited Liability Company",
+              "Other"
+            ]
+          },
+          "smllc_owner_name": { "type": "string" },
+          "company_type_name": { "type": "string" },
+          "taxed_as": {
+            "type": "string",
+            "enum": ["C Corporation", "S Corporation", "Partnership"]
+          },
+          "address": {
+            "type": "string",
+            "description": "Investor's Street Address."
+          },
+          "city": {
+            "type": "string",
+            "description": "Investor's city of residence."
+          },
+          "state": {
+            "type": "string",
+            "description": "Investor's state of residence."
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Investor's postal code."
+          },
+          "tax_id": {
+            "type": "string",
+            "description": "Investor's tax id (SSN)."
+          }
+        }
+      },
+      "W-8-BEN": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Investor's Street Address."
+          },
+          "city": {
+            "type": "string",
+            "description": "Investor's city of residence."
+          },
+          "region": { "type": "string" },
+          "postal_code": {
+            "type": "string",
+            "description": "Investor's postal code."
+          },
+          "residence_country": {
+            "type": "string",
+            "description": "Investor's country of residence."
+          },
+          "mailing_address": { "type": "string" },
+          "mailing_city": { "type": "string" },
+          "mailing_region": { "type": "string" },
+          "mailing_postal_code": { "type": "string" },
+          "mailing_country": { "type": "string" },
+          "tax_id": {
+            "type": "string",
+            "description": "Investor's tax id (EIN)."
+          },
+          "foreign_tax_id": { "type": "string" },
+          "treaty_country": { "type": "string" },
+          "treaty_article": { "type": "string" },
+          "treaty_withholding": { "type": "string" },
+          "treaty_income": { "type": "string" },
+          "treaty_conditions": { "type": "string" }
+        }
+      },
+      "W-8-BEN-E": {
+        "type": "object",
+        "properties": {
+          "disregarded_entity": { "type": "string" },
+          "chapter3_status": {
+            "type": "string",
+            "description": "Chapter 3 Selection (one only)",
+            "enum": [
+              "Simple trust",
+              "Central Bank of Issue",
+              "Grantor trust",
+              "Tax-exempt organization",
+              "Private foundation",
+              "Disregarded entity",
+              "Corporation",
+              "Complex trust",
+              "Estate",
+              "International organization",
+              "Partnership",
+              "Foreign Government - Controlled Entity",
+              "Foreign Government - Integral Part"
+            ]
+          },
+          "chapter4_status": {
+            "type": "array",
+            "description": "Chapter 4 Selections (can be multiple)",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Nonparticipating FFI (including an FFI related to a Reporting IGA FFI other than a deemed-compliant FFI",
+                "participating FFI",
+                "or exempt beneficial owner)",
+                "Participating FFI",
+                "Reporting Model 1 FFI",
+                "Reporting Model 2 FFI",
+                "Registered deemed-compliant FFI (other than a reporting Model 1 FFI",
+                "sponsored FFI",
+                "or nonreporting IGA FFI covered in Part XII). See instructions",
+                "Sponsored FFI. Complete Part IV",
+                "Certified deemed-compliant nonregistering local bank. Complete Part V",
+                "Certified deemed-compliant FFI with only low-value accounts. Complete Part VI",
+                "Certified deemed-compliant sponsored",
+                "closely held investment vehicle. Complete Part VII",
+                "Certified deemed-compliant limited life debt investment entity. Complete Part VIII",
+                "Certain investment entities that do not maintain financial accounts. Complete Part IX",
+                "Owner-documented FFI. Complete Part X",
+                "Restricted distributor. Complete Part XI",
+                "Nonreporting IGA FFI. Complete Part XII",
+                "Foreign government",
+                "government of a U.S. possession",
+                "or foreign central bank of issue. Complete Part XIII",
+                "International organization. Complete Part XIV",
+                "Exempt retirement plans. Complete Part XV",
+                "Entity wholly owned by exempt beneficial owners. Complete Part XVI",
+                "Territory financial institution. Complete Part XVII",
+                "Excepted nonfinancial group entity. Complete Part XVIII",
+                "Excepted nonfinancial start-up company. Complete Part XIX",
+                "Excepted nonfinancial entity in liquidation or bankruptcy. Complete Part XX",
+                "501(c) organization. Complete Part XXI",
+                "Nonprofit organization. Complete Part XXII",
+                "Publicly traded NFFE or NFFE affiliate of a publicly traded corporation. Complete Part XXIII",
+                "Excepted territory NFFE. Complete Part XXIV",
+                "Active NFFE. Complete Part XXV",
+                "Passive NFFE. Complete Part XXVI",
+                "Excepted inter-affiliate FFI. Complete Part XXVII",
+                "Direct reporting NFFE",
+                "Sponsored direct reporting NFFE. Complete Part XXVIII",
+                "Account that is not a financial account"
+              ]
+            }
+          },
+          "address": {
+            "type": "string",
+            "description": "Investor's Street Address."
+          },
+          "city": {
+            "type": "string",
+            "description": "Investor's city of residence."
+          },
+          "region": { "type": "string" },
+          "postal_code": {
+            "type": "string",
+            "description": "Investor's postal code."
+          },
+          "residence_country": {
+            "type": "string",
+            "description": "Investor's country of residence."
+          },
+          "tax_id": {
+            "type": "string",
+            "description": "Investor's tax id (EIN)."
+          },
+          "foreign_tax_id": { "type": "string" }
+        }
+      },
+      "InvestorPassport": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The investor passport's primary key."
+          },
+          "id": { "type": "string", "description": "A virtual of _id." },
+          "phase": {
+            "type": "string;",
+            "enum": [
+              "new",
+              "onboarding",
+              "kyc",
+              "review",
+              "rejected",
+              "failed",
+              "self-accredited"
+            ],
+            "description": "The phase the investor passport is currently in."
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the Entity or Individual."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["Entity", "Individual"],
+            "description": "The type of investor passport."
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the individual who represents the Entity."
+          },
+          "representative": {
+            "type": "string",
+            "description": "The name of the individual who represents the Entity."
+          },
+          "country": {
+            "type": "string",
+            "description": "The country of formation or residence."
+          },
+          "accreditation_type": {
+            "type": "string",
+            "description": "How the investor is accredited. See https://www.sec.gov/education/capitalraising/building-blocks/accredited-investor",
+            "enum": [
+              "NetWorthOver1m",
+              "SoloOver200k",
+              "JointOver300k",
+              "Certification",
+              "DirectorOfFund",
+              "KnowledgeableEmployee",
+              "EachOwnerAccredited",
+              "AssetsOver5m",
+              "AUM5m",
+              "InvestmentAdvisor",
+              "FinancialEntity"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Extra data to store with the investor passport."
+          }
+        }
+      }
+    }
+  },
+  "x-tagGroups": [
+    {
+      "name": "API",
+      "tags": [
+        "Investor Passport",
+        "Investment",
+        "Investment Agreement",
+        "Investor Passport Model"
+      ]
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://api.allocations.app",
+      "description": "Production HVP API"
+    }
+  ],
+  "paths": {
+    "/api/v1/investment-agreements/:id": {
+      "get": {
+        "deprecated": true,
+        "summary": "List Investment Agreements",
+        "description": "Get/filter a list of investment agreements (use [/api/v1/investments/:id/agreements](#tag/Investment/operation/getInvestmentAgreements)).",
+        "tags": ["Investment Agreement"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Investment Id",
+            "required": true,
+            "name": "id",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      { "$ref": "#/components/schemas/InvestmentAgreement" },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "link": {
+                            "type": "string",
+                            "description": "Link to agreement document."
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investment-agreements/{id}/sign": {
+      "post": {
+        "summary": "Sign Investment Agreement",
+        "description": "Sign an investment agreement by id. Used to sign subscription agreements and side letters for an investor. You are required to present the signer with [Valid E-Signature](/docs/concepts/valid-e-signature).",
+        "tags": ["Investment Agreement"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Investment Agreement ID",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accepted_intent_to_sign": {
+                    "type": "boolean",
+                    "description": "The user accepted an intent to electronically sign the agreement."
+                  },
+                  "accepted_electronic_business": {
+                    "type": "boolean",
+                    "description": "The user accepted to do business electronically."
+                  },
+                  "signer_ip_address": {
+                    "type": "string",
+                    "description": "The IP Address of the signer at the time of signing the agreement."
+                  },
+                  "signer_user_id": {
+                    "type": "string",
+                    "description": "The signer Allocations user ID."
+                  },
+                  "signer_email": {
+                    "type": "string",
+                    "description": "The email address of the signer at the time of signing the agreement."
+                  },
+                  "signature_date": {
+                    "type": "string",
+                    "description": "The date the signer signed the agreement."
+                  }
+                },
+                "required": [
+                  "accepted_intent_to_sign",
+                  "accepted_electronic_business",
+                  "signer_ip_address",
+                  "signer_user_id",
+                  "signer_email",
+                  "signature_date"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": { "type": "string" },
+                    "acknowledged": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investments": {
+      "post": {
+        "summary": "Create Investment",
+        "description": "Create a new SPV Investment. This this requires an [Investor Passport](/docs/concepts/investor-passport) which represents the Individual or Entity investing in a deal.",
+        "tags": ["Investment"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "deal_id": {
+                    "type": "string",
+                    "description": "The id of the deal that should be associated with the investment."
+                  },
+                  "passport_id": {
+                    "type": "string",
+                    "description": "The investor passport associated with the investor."
+                  },
+                  "investor_email": {
+                    "type": "string",
+                    "description": "The email address of the investor."
+                  },
+                  "total_committed_amount": {
+                    "type": "number",
+                    "description": "The total amount committed by the investor into the deal."
+                  },
+                  "carry_fee_percent": {
+                    "type": "number",
+                    "description": "The carry fee to use if a side_letter is issued."
+                  },
+                  "custom_carry_fee": {
+                    "type": "string",
+                    "description": "The custom carry fee to use if a side_letter is issued."
+                  },
+                  "management_fee_percent": {
+                    "type": "number",
+                    "description": "The management fee to use if a side_letter is issued."
+                  },
+                  "custom_management_fee": {
+                    "type": "number",
+                    "description": "The custom management fee to use if a side_letter is issued."
+                  },
+                  "management_fee_frequency": {
+                    "type": "string",
+                    "enum": ["One-Time", "Annually"],
+                    "description": "The management fee frequency to use if a side_letter is issued."
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "Extra information to store with the investment."
+                  }
+                },
+                "required": ["deal_id", "passport_id", "investor_email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Investment Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Investment" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investments/{id}": {
+      "get": {
+        "summary": "Get Investment",
+        "description": "Get a investment by id",
+        "tags": ["Investment"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Investment ID",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Investment" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investments/:id/agreements": {
+      "get": {
+        "operationId": "getInvestmentAgreements",
+        "summary": "List Investment Agreements",
+        "description": "Get/filter a list of [Investment agreements](docs/concepts/investment-agreement) (e.g. subscription agreement). Use this to get investment agreements that have been signed or need to be signed to complete an investment.",
+        "tags": ["Investment"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Investment Id",
+            "required": true,
+            "name": "id",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      { "$ref": "#/components/schemas/InvestmentAgreement" },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "link": {
+                            "type": "string",
+                            "description": "Link to agreement document."
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investor-passports": {
+      "post": {
+        "summary": "Create Investor Passport",
+        "description": "Create a new [Investor Passport](/docs/concepts/investor-passport). Investor Passports collect identifying information about an investor in order to KYC/KYB an investor and generate tax returns.",
+        "tags": ["Investor Passport"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the investor passport. Either the Entity's name or the Individual's name."
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["Entity", "Individual"],
+                    "description": "Whether the passport is for an Entity or an Individual."
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "The title of the individual signing on behalf of an Entity."
+                  },
+                  "representative": {
+                    "type": "string",
+                    "description": "The name of the individual signing on behalf of the Entity."
+                  },
+                  "country": {
+                    "type": "string",
+                    "description": "The country of formation or residence."
+                  },
+                  "accreditation_type": {
+                    "type": "string",
+                    "description": "How the investor is accredited. See https://www.sec.gov/education/capitalraising/building-blocks/accredited-investor",
+                    "enum": [
+                      "NetWorthOver1m",
+                      "SoloOver200k",
+                      "JointOver300k",
+                      "Certification",
+                      "DirectorOfFund",
+                      "KnowledgeableEmployee",
+                      "EachOwnerAccredited",
+                      "AssetsOver5m",
+                      "AUM5m",
+                      "InvestmentAdvisor",
+                      "FinancialEntity"
+                    ]
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "Extra data to store with the investor passport."
+                  }
+                },
+                "required": ["name", "type", "country", "accreditation_type"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created Investor Passport as well as the tax_form_fields required to create the correct tax form for the new investor passport",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/InvestorPassport" }
+                  ],
+                  "properties": {
+                    "tax_form_fields": {
+                      "type": "object",
+                      "oneOf": [
+                        { "$ref": "#/components/schemas/W-9" },
+                        { "$ref": "#/components/schemas/W-9-E" },
+                        { "$ref": "#/components/schemas/W-8-BEN" },
+                        { "$ref": "#/components/schemas/W-8-BEN-E" }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Investor Passports",
+        "description": "Get/filter a list of [Investor Passports](/docs/concepts/investor-passports).",
+        "tags": ["Investor Passport"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "parameters": [
+          { "in": "query", "name": "name", "schema": { "type": "string" } },
+          {
+            "in": "query",
+            "name": "phase",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "new",
+                "onboarding",
+                "kyc",
+                "review",
+                "rejected",
+                "failed",
+                "self-accredited"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "schema": { "type": "string", "enum": ["Entity", "Individual"] }
+          },
+          { "in": "query", "name": "title", "schema": { "type": "string" } },
+          {
+            "in": "query",
+            "name": "representative",
+            "schema": { "type": "string" }
+          },
+          { "in": "query", "name": "country", "schema": { "type": "string" } },
+          {
+            "in": "query",
+            "name": "accreditation_type",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/InvestorPassport" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investor-passports/{id}/tax-information": {
+      "post": {
+        "summary": "Complete Tax Information",
+        "description": "Add W8/W9 tax information to an existing investor passport. See more information [here](/docs/concepts/investor-passport#tax-information)\nTax Form Guidelines:\n  * Use W-9 template if **investor is an Individual and the investor lives in the United States**\n  * Use W-9-E template if **investor is an Entity and the investor lives in the United States**\n  * Use W-BEN template if **investor is an Individual and the investor does not live in the United States**\n  * Use W-BEN-E template if **investor is an Entity and the investor does not live in the United States**\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "InvestorPassport ID",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "tags": ["Investor Passport"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tax_form": {
+                    "oneOf": [
+                      { "$ref": "#/components/schemas/W-9" },
+                      { "$ref": "#/components/schemas/W-9-E" },
+                      { "$ref": "#/components/schemas/W-8-BEN" },
+                      { "$ref": "#/components/schemas/W-8-BEN-E" }
+                    ]
+                  },
+                  "signature_packet": {
+                    "type": "object",
+                    "properties": {
+                      "accepted_intent_to_sign": {
+                        "type": "boolean",
+                        "description": "The user accepted an intent to electronically sign the agreement."
+                      },
+                      "accepted_electronic_business": {
+                        "type": "boolean",
+                        "description": "The user accepted to do business electronically."
+                      },
+                      "signer_ip_address": {
+                        "type": "string",
+                        "description": "The IP Address of the signer at the time of signing the agreement."
+                      },
+                      "signer_user_id": {
+                        "type": "string",
+                        "description": "The signer Allocations user ID."
+                      },
+                      "signer_email": {
+                        "type": "string",
+                        "description": "The email address of the signer at the time of signing the agreement."
+                      },
+                      "signature_date": {
+                        "type": "string",
+                        "description": "The date the signer signed the agreement."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "W8/W9 successfully associated and stored",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "_id": { "type": "string" },
+                    "acknowledged": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investor-passports/{id}/upload-link/{type}": {
+      "post": {
+        "summary": "Upload Identifying Documents",
+        "description": "Retrieve a link to upload a Passport Asset associated with an Investor Passport (e.g. Government Issued Id). See more information [here](/docs/concepts/investor-passport#identifying-documents)",
+        "tags": ["Investor Passport"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "InvestorPassport ID",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Passport Asset type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["tax-form", "government-issued-id", "proof-of-residence"]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content_type": {
+                    "type": "string",
+                    "description": "Asset content type"
+                  }
+                },
+                "required": ["content_type"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Passport Asset created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "link": {
+                      "type": "string",
+                      "description": "PUT link that can be used to upload asset."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investor-passports/{id}": {
+      "get": {
+        "summary": "Get Investor Passport",
+        "description": "Get an [Investor Passport](/docs/concepts/investor-passport) by id.",
+        "tags": ["Investor Passport"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "InvestorPassport ID",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InvestorPassport" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investor-passports/{id}/kyc": {
+      "get": {
+        "summary": "Trigger KYC/KYB",
+        "description": "Get an investor passport's latest KYC/KYB result or trigger a new one if expired. See more information [here](http://localhost:3000/docs/concepts/investor-passport#kyckyb).",
+        "tags": ["Investor Passport"],
+        "security": [{ "ApiKeyAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "InvestorPassport ID",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Latest KYC results for the investor passport.",
+                  "properties": {
+                    "passport_id": {
+                      "type": "string",
+                      "description": "The id of the associated investor passport"
+                    },
+                    "passed": {
+                      "type": "boolean",
+                      "description": "The result of the KYC."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Investment Agreement",
+      "description": "Allocations investment agreements like subscription agreement and side letters"
+    },
+    {
+      "name": "Investment Agreement Model",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/InvestmentAgreement\" />"
+    },
+    { "name": "Investment", "description": "Allocations SPV Investments." },
+    {
+      "name": "Investment Model",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Investment\" />"
+    },
+    {
+      "name": "Investor Passport",
+      "description": "Allocations Investor Passport"
+    },
+    {
+      "name": "Investor Passport Model",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/InvestorPassport\" />"
+    }
+  ]
+}
