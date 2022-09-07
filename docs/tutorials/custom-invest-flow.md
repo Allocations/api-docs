@@ -22,4 +22,4 @@ Authorization: Bearer YOUR_API_KEY_HERE
 ## Next Steps
 
 - View our [API Documentation](/api)
-- Follow our [Custom Invest Flow Tutorial](/custom-invest-flow)
+- Follow our [Custom Invest Flow Tutorial](/docs/tutorials/custom-invest-flow)

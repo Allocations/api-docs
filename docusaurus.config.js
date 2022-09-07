@@ -10,7 +10,7 @@ const config = {
   tagline: "Powering Alternative Investment Applications",
   url: "https://developers.allocations.app",
   baseUrl: "/",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon:
     "https://assets.website-files.com/60de06ef89c60667f2d7bc65/60ef960e88e6d6cda2ae4ddf_favicon-32x32.png",
