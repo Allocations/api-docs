@@ -5,14 +5,14 @@ import styles from "./HomepageFeatures.module.css";
 const FeatureList = [
   {
     title: "Easy to Use",
-    Svg: require("../../static/img/undraw_docusaurus_mountain.svg").default,
+    Svg: require("../../static/img/hollow-stack.svg").default,
     description: (
       <>Get started quickly with developer focused tools and documentation.</>
     ),
   },
   {
     title: "Focus on What Matters",
-    Svg: require("../../static/img/undraw_docusaurus_tree.svg").default,
+    Svg: require("../../static/img/cluster-above.svg").default,
     description: (
       <>
         The Allocations API let's you focus on your alternative investments
@@ -23,7 +23,7 @@ const FeatureList = [
   },
   {
     title: "Power For the Next Generation",
-    Svg: require("../../static/img/undraw_docusaurus_react.svg").default,
+    Svg: require("../../static/img/triple-stack.svg").default,
     description: (
       <>
         With <b>Over 1 Billion Assets Under Management</b> the Allocations API
