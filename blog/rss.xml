@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Allocations API Blog</title>
-        <link>https://developers.allocations.app/blog</link>
+        <link>https://developer.allocations.come/blog</link>
         <description>Allocations API Blog</description>
         <lastBuildDate>Wed, 07 Sep 2022 22:14:47 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,7 +10,7 @@
         <language>en</language>
         <item>
             <title><![CDATA[welcome]]></title>
-            <link>https://developers.allocations.app/blog/welcome</link>
+            <link>https://developer.allocations.come/blog/welcome</link>
             <guid>/welcome</guid>
             <pubDate>Wed, 07 Sep 2022 22:14:47 GMT</pubDate>
             <description><![CDATA[hi]]></description>
