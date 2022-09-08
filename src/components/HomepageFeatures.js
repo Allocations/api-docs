@@ -11,23 +11,22 @@ const FeatureList = [
     ),
   },
   {
-    title: "Focus on What Matters",
-    Svg: require("../../static/img/cluster-above.svg").default,
+    title: "Build Alternative Investment Apps",
+    Svg: require("../../static/img/triple-stack.svg").default,
     description: (
       <>
-        The Allocations API let's you focus on your alternative investments
-        application, while we take care of <b>Regulatory Filings</b> and{" "}
-        <b>Taxes</b>.
+        We take care of <b>Regulatory Filings</b> and <b>Taxes</b> so you can
+        focus on building amazing alternitive investment applications.
       </>
     ),
   },
   {
     title: "Power For the Next Generation",
-    Svg: require("../../static/img/triple-stack.svg").default,
+    Svg: require("../../static/img/cluster-above.svg").default,
     description: (
       <>
         With <b>Over 1 Billion Assets Under Management</b> the Allocations API
-        has a proven track record that will allow your application to scale.
+        has a proven track record that allows your application to scale.
       </>
     ),
   },
