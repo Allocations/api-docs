@@ -1,15 +1,17 @@
 ---
-sidebar_position: 5
+sidebar_position: 2
 ---
 
-# Update Airtable
+# Create an API Key
 
 Access to the Allocations API is granted to an organization via API keys. Each API key is tied to an
 organization and has full access to the API on behalf of that organization.
 
+See the [Getting Started](/docs/tutorials/intro) to create a new organization.
+
 ## Get an API Key
 
-API keys can be generated from the Allocations Dashboard on the [API Settings page](https://dashboard.allocations.com).
+API keys can be generated from the Allocations API Dashboard on the [API Keys page](https://developer.allocations.app/organizations/api-keys).
 
 ## Using an API Key
 
@@ -19,7 +21,4 @@ The API key should be used as a `Bearer` token in the `Authorization` header on 
 Authorization: Bearer YOUR_API_KEY_HERE
 ```
 
-## Next Steps
-
-- View our [API Documentation](/api)
-- Follow our [Custom Invest Flow Tutorial](/custom-invest-flow)
+Try out a new API Key from your browser [here](/api/list-investor-passports).
