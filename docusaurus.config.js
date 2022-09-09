@@ -64,7 +64,7 @@ const config = {
           { to: "/api", label: "API", position: "left" },
           { to: "/blog", label: "Blog", position: "left" },
           {
-            label: "🔗 API Dashboard",
+            label: "API Dashboard",
             href: "https://developer.allocations.app",
             position: "right",
           },
