@@ -1,5 +1,4 @@
 ---
-<<<<<<< Updated upstream
 sidebar_position: 3
 ---
 
@@ -30,23 +29,27 @@ If the investor is from the United States, then a `state` field is also required
 Additionally, arbitrary `metadata` can be provided and stored with the Investor Passport record. This is useful for storing additional data like identifiers from your own database.
 
 ```ts
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
-const createInvestorPassport = async() => {
-  const res = await fetch('https://api.allocations.app/api/v1/investor-passport', {
-    method
-  })
-}
+const createInvestorPassport = async () => {
+  const res = await fetch(
+    "https://api.allocations.app/api/v1/investor-passport",
+    {
+      method,
+    }
+  );
+};
 ```
-
 
 ## Step 2: Upload Identifying Documentation
 
 ## Step 3: Complete Tax Information
 
 ## Step 4: Trigger KYC/KYB
+
 =======
 sidebar_position: 2
+
 ---
 
 # Getting Started
@@ -70,4 +73,4 @@ Authorization: Bearer YOUR_API_KEY_HERE
 
 - View our [API Documentation](/api)
 - Follow our [Custom Invest Flow Tutorial](/docs/tutorials/custom-invest-flow)
->>>>>>> Stashed changes
+  > > > > > > > Stashed changes
