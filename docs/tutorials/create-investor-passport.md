@@ -1,4 +1,5 @@
 ---
+<<<<<<< Updated upstream
 sidebar_position: 3
 ---
 
@@ -44,3 +45,29 @@ const createInvestorPassport = async() => {
 ## Step 3: Complete Tax Information
 
 ## Step 4: Trigger KYC/KYB
+=======
+sidebar_position: 2
+---
+
+# Getting Started
+
+Access to the Allocations API is granted to an organization via API keys. Each API key is tied to an
+organization and has full access to the API on behalf of that organization.
+
+## Get an API Key
+
+API keys can be generated from the Allocations API Dashboard on the [API Keys](https://dashboard.allocations.com).
+
+## Using an API Key
+
+The API key should be used as a `Bearer` token in the `Authorization` header on each API request.
+
+```
+Authorization: Bearer YOUR_API_KEY_HERE
+```
+
+## Next Steps
+
+- View our [API Documentation](/api)
+- Follow our [Custom Invest Flow Tutorial](/docs/tutorials/custom-invest-flow)
+>>>>>>> Stashed changes

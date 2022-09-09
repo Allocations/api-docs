@@ -9,7 +9,7 @@ organization and has full access to the API on behalf of that organization.
 
 ## Get an API Key
 
-API keys can be generated from the Allocations Dashboard on the [API Settings page](https://dashboard.allocations.com).
+API keys can be generated from the Allocations API Dashboard on the [API Keys](https://dashboard.allocations.com).
 
 ## Using an API Key
 
