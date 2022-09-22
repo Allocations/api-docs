@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkapi_docs=self.webpackChunkapi_docs||[]).push([[535],{45641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"welcome","permalink":"/blog/welcome"}]}')}}]);
