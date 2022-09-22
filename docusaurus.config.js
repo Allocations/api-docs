@@ -62,7 +62,7 @@ const config = {
             label: "Concepts",
           },
           { to: "/api", label: "API", position: "left" },
-          { to: "/blog", label: "Blog", position: "left" },
+          { to: "/demo", label: "Request a Demo", position: "right" },
           {
             label: "API Dashboard",
             href: "https://developer.allocations.app",
@@ -95,7 +95,7 @@ const config = {
               },
               {
                 label: "Twitter",
-                href: "https://twitter.com/docusaurus",
+                href: "https://twitter.com/allocationsinc",
               },
             ],
           },
@@ -103,17 +103,17 @@ const config = {
             title: "More",
             items: [
               {
-                label: "Blog",
-                to: "/blog",
+                label: "Allocations Home",
+                href: "https://allocations.com",
               },
               {
                 label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                href: "https://github.com/allocations/api-docs",
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Allocations, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,

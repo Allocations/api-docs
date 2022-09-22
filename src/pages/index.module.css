@@ -4,17 +4,20 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
-  background: var(--ifm-color-primary) url(../../static//img//space.jpg)
-    center/100% no-repeat;
+}
+
+.heroImage {
+  margin: auto;
+  height: calc(100vh - 60px);
+  max-height: 900px;
 }
 
 @media screen and (max-width: 966px) {
-  .heroBanner {
-    padding: 2rem;
+  .heroImage {
+    max-height: 400px;
   }
 }
 

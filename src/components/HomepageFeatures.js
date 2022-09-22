@@ -16,7 +16,7 @@ const FeatureList = [
     description: (
       <>
         We take care of <b>Regulatory Filings</b> and <b>Taxes</b> so you can
-        focus on building amazing alternitive investment applications.
+        focus on building amazing alternative investment applications.
       </>
     ),
   },
@@ -25,7 +25,7 @@ const FeatureList = [
     Svg: require("../../static/img/cluster-above.svg").default,
     description: (
       <>
-        With <b>Over 1 Billion Assets Under Management</b> the Allocations API
+        With <b>Over 1 Billion Assets Under Administration</b> the Allocations API
         has a proven track record that allows your application to scale.
       </>
     ),
