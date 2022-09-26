@@ -55,12 +55,12 @@ const config = {
             position: "left",
             label: "Tutorial",
           },
-          {
-            type: "doc",
-            docId: "concepts/intro",
-            position: "left",
-            label: "Concepts",
-          },
+          // {
+          //   type: "doc",
+          //   docId: "concepts/intro",
+          //   position: "left",
+          //   label: "Concepts",
+          // },
           { to: "/api", label: "API", position: "left" },
           { to: "/demo", label: "Request a Demo", position: "right" },
           {

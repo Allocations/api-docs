@@ -1,5 +1,6 @@
 ---
 sidebar_position: 3
+sidebar_hidden: true
 ---
 
 # Create an Investor Passport
@@ -24,7 +25,7 @@ If the investor is an `Entity` the following fields are also required:
 - `title` - The title of the individual signing on behalf of an Entity.
 - `representative` - The name of the individual signing on behalf of the Entity.
 
-If the investor is from the United States, then a `state` field is also required.
+If the investor is from the United States, then a `us_state` field is also required.
 
 Additionally, arbitrary `metadata` can be provided and stored with the Investor Passport record. This is useful for storing additional data like identifiers from your own database.
 
@@ -33,9 +34,16 @@ import fetch from "node-fetch";
 
 const createInvestorPassport = async () => {
   const res = await fetch(
-    "https://api.allocations.app/api/v1/investor-passport",
+    "https://api.allocations.app/api/v1/investor-passports",
     {
-      method,
+      method: "POST",
+      headers: {
+        Authorization: `BEARER ${YOUR_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "",
+      }),
     }
   );
 };
@@ -46,31 +54,3 @@ const createInvestorPassport = async () => {
 ## Step 3: Complete Tax Information
 
 ## Step 4: Trigger KYC/KYB
-
-=======
-sidebar_position: 2
-
----
-
-# Getting Started
-
-Access to the Allocations API is granted to an organization via API keys. Each API key is tied to an
-organization and has full access to the API on behalf of that organization.
-
-## Get an API Key
-
-API keys can be generated from the Allocations API Dashboard on the [API Keys](https://dashboard.allocations.com).
-
-## Using an API Key
-
-The API key should be used as a `Bearer` token in the `Authorization` header on each API request.
-
-```
-Authorization: Bearer YOUR_API_KEY_HERE
-```
-
-## Next Steps
-
-- View our [API Documentation](/api)
-- Follow our [Custom Invest Flow Tutorial](/docs/tutorials/custom-invest-flow)
-  > > > > > > > Stashed changes
