@@ -4,12 +4,14 @@ sidebar_position: 1
 
 # Getting Started
 
-Access to the Allocations API is granted to an organization via API keys. Each API key is tied to an
-organization and has full access to the API on behalf of that organization.
+API Keys grant access to the Allocations API for an organization. Each API key has full access to the API on behalf of that organization.
 
 ## Get an API Key
 
-API keys can be generated from the Allocations API Dashboard on the [API Keys](https://dashboard.allocations.com).
+Generate API Keys from the Allocations API Dashboard on the [API Keys](https://dashboard.allocations.com). There are two types of API Keys:
+
+- `test` - Used to test your integration in a sandbox environment.
+- `production` - Used in production to create real data.
 
 ## Using an API Key
 

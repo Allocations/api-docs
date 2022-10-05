@@ -1,17 +1,18 @@
----
+\*\*\*\*---
 sidebar_position: 2
+
 ---
 
 # Create an API Key
 
-Access to the Allocations API is granted to an organization via API keys. Each API key is tied to an
-organization and has full access to the API on behalf of that organization.
-
-See the [Getting Started](/docs/tutorials/intro) to create a new organization.
+API Keys grant access to the Allocations API for an organization. Each API key has full access to the API on behalf of that organization.
 
 ## Get an API Key
 
-API keys can be generated from the Allocations API Dashboard on the [API Keys page](https://developer.allocations.app/organizations/api-keys).
+Generate API Keys from the Allocations API Dashboard on the [API Keys](https://dashboard.allocations.com). There are two types of API Keys:
+
+- `test` - Used to test your integration in a sandbox environment.
+- `production` - Used in production to create real data.
 
 ## Using an API Key
 
@@ -20,5 +21,3 @@ The API key should be used as a `Bearer` token in the `Authorization` header on 
 ```
 Authorization: Bearer YOUR_API_KEY_HERE
 ```
-
-Try out a new API Key from your browser [here](/api/list-investor-passports).
