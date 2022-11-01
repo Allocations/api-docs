@@ -8,7 +8,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "Allocations API",
   tagline: "Powering Alternative Investment Applications",
-  url: "https://developer.allocations.come",
+  url: "https://developer.allocations.com",
   baseUrl: "/",
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",

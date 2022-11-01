@@ -502,7 +502,7 @@
   ],
   "servers": [
     {
-      "url": "https://api.allocations.dev",
+      "url": "https://api.allocations.app",
       "description": "Production HVP API"
     }
   ],

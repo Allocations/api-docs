@@ -34,7 +34,7 @@ import fetch from "node-fetch";
 
 const createInvestorPassport = async () => {
   const res = await fetch(
-    "https://api.allocations.dev/api/v1/investor-passports",
+    "https://api.allocations.app/api/v1/investor-passports",
     {
       method,
     }
