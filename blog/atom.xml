@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://developer.allocations.come/blog</id>
+    <id>https://developer.allocations.com/blog</id>
     <title>Allocations API Blog</title>
     <updated>2022-09-07T22:14:47.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://developer.allocations.come/blog"/>
+    <link rel="alternate" href="https://developer.allocations.com/blog"/>
     <subtitle>Allocations API Blog</subtitle>
-    <icon>https://developer.allocations.come/https://assets.website-files.com/60de06ef89c60667f2d7bc65/60ef960e88e6d6cda2ae4ddf_favicon-32x32.png</icon>
+    <icon>https://developer.allocations.com/https://assets.website-files.com/60de06ef89c60667f2d7bc65/60ef960e88e6d6cda2ae4ddf_favicon-32x32.png</icon>
     <entry>
         <title type="html"><![CDATA[welcome]]></title>
         <id>/welcome</id>
-        <link href="https://developer.allocations.come/blog/welcome"/>
+        <link href="https://developer.allocations.com/blog/welcome"/>
         <updated>2022-09-07T22:14:47.000Z</updated>
         <summary type="html"><![CDATA[hi]]></summary>
         <content type="html"><![CDATA[<p>hi</p>]]></content>
