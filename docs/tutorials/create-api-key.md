@@ -9,7 +9,7 @@ API Keys grant access to the Allocations API for an organization. Each API key h
 
 ## Get an API Key
 
-Generate API Keys from the Allocations API Dashboard on the [API Keys](https://dashboard.allocations.com). There are two types of API Keys:
+Generate API Keys from the Allocations API Dashboard on the [API Keys](https://developer.allocations.app). There are two types of API Keys:
 
 - `test` - Used to test your integration in a sandbox environment.
 - `production` - Used in production to create real data.
